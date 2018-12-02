@@ -11,13 +11,13 @@ class DataSets(object):
             del self.memory[0]
 
     def get_data(self,model,data_size=10,last_few=10):
-        tablero_size = self.memory[0][0].shape[1]#alto por ancho
+        a,b,c,d = self.memory[0][0].shape#alto por ancho
         mem_size = len(self.memory)
         last_few = min(mem_size, last_few)
         data_size = min(last_few, data_size)
 
-        inputs = np.zeros((data_size, tablero_size))
-        targets = np.zeros((data_size, tablero_size))
+        inputs = np.zeros((data_size, b,c,d))
+        targets = np.zeros((data_size, b*c))
 
         for i, j in enumerate(np.random.choice(range(last_few), data_size, replace=False)):
             envstate, action, reward, envstate_next, game_over = self.memory[mem_size-last_few+j]
